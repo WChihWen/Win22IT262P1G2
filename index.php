@@ -7,7 +7,7 @@
 </head>
 <body>
     Temperature Conversion
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">       
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">       
         <p> 
             Value: <input type="number" name="Val" value="<?php if(isset($_POST['Val'])) echo htmlspecialchars($_POST['Val']); ?>">
             <select name="selectFrom">
