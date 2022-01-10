@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<?php include 'conversion.php';?>
 <meta charset="UTF-8">
 <title>Temperature Conversion - P1G2</title>
 
@@ -54,25 +55,37 @@
                         echo '<span class="error">Please select different units!</span>';              
                         break;
                     case 'CtoF':
-                        echo '<span >Convert C to F</span>';
+                        $myTemp = celsius_to_fahrenheit ($_POST['Val']);
+                        echo $myTemp;
+                        // echo '<span >Convert C to F</span>';
                         break;
                     case 'CtoK':
-                        echo '<span >Convert C to K</span>';
+                        $myTemp = celsius_to_kelvin ($_POST['Val']);
+                        echo $myTemp;
+                        //echo '<span >Convert C to K</span>';
                         break;                      
                     case 'FtoC': 
-                        echo '<span>Convert F to C</span>';           
+                        $myTemp = fahrenheit_to_celsius ($_POST['Val']);
+                        echo $myTemp;
+                        //echo '<span>Convert F to C</span>';           
                         break;
                     case 'FtoF':
                         echo '<span >Please select different units!</span>';
                         break;
                     case 'FtoK':
-                        echo '<span>Convert F to K</span>';
+                        $myTemp = fahrenheit_to_kelvin ($_POST['Val']);
+                        echo $myTemp;
+                        //echo '<span>Convert F to K</span>';
                         break;                        
                     case 'KtoC':  
-                        echo '<span >Convert K to C</span>';
+                        $myTemp = kelvin_to_celsius ($_POST['Val']);
+                        echo $myTemp;
+                        // echo '<span >Convert K to C</span>';
                         break;
                     case 'KtoF':
-                        echo '<span \>Convert K to F</span>';
+                        $myTemp = kelvin_to_fahrenheit ($_POST['Val']);
+                        echo $myTemp;
+                        // echo '<span \>Convert K to F</span>';
                         break;
                     case 'KtoK':
                         echo '<span class="error">Please select different units!</span>';
