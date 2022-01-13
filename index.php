@@ -2,13 +2,11 @@
 
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Voltaire&display=swap" rel="stylesheet">
     <link href="css/styles.css" type="text/css" rel="stylesheet">
     <title>Temperature Conversion - P1G2</title>
-
 </head>
 
 <body>
@@ -22,7 +20,7 @@
                         <option value="NULL" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == NULL) echo 'selected="unselected"'; ?>>Select one!</option>
                         <option value="C" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == "C") echo 'selected="selected"'; ?>>°C</option>
                         <option value="F" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == "F") echo 'selected="selected"'; ?>>°F</option>
-                        <option value="K" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == "K") echo 'selected="selected"'; ?>>°K</option>
+                        <option value="K" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == "K") echo 'selected="selected"'; ?>>Kelvin</option>
                     </select>
                 </p>
                 <p>
@@ -31,7 +29,7 @@
                         <option value="NULL" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == NULL) echo 'selected="unselected"'; ?>>Select one!</option>
                         <option value="C" <?php if (isset($_POST['selectTo']) && $_POST['selectTo'] == "C") echo 'selected="selected"'; ?>>°C</option>
                         <option value="F" <?php if (isset($_POST['selectTo']) && $_POST['selectTo'] == "F") echo 'selected="selected"'; ?>>°F</option>
-                        <option value="K" <?php if (isset($_POST['selectTo']) && $_POST['selectTo'] == "K") echo 'selected="selected"'; ?>>°K</option>
+                        <option value="K" <?php if (isset($_POST['selectTo']) && $_POST['selectTo'] == "K") echo 'selected="selected"'; ?>>Kelvin</option>
                     </select>
                 </p>
 
@@ -59,50 +57,29 @@
                 echo '<p><span class="error">Please select convert to unit!</span></p>';
                 $all_set = false;
             }
-            if ($all_set == true) {
-                $type = $_POST['selectFrom'] . "to" . $_POST['selectTo'];
 
+            if ($all_set == true) {
+                $type = $_POST['selectFrom'] . "to" . $_POST['selectTo'];                
                 switch ($type) {
                     case 'CtoC':
-                        echo '<span class="error">Please select different units!</span>';
-                        break;
-                    case 'CtoF':
-                        $myTemp = celsius_to_fahrenheit($_POST['Val']);
-                        echo '<p class="temp">The temperature is ' . $myTemp . ' degrees Fahrenheit.</p>';
-                        // echo '<span >Convert C to F</span>';
-                        break;
-                    case 'CtoK':
-                        $myTemp = celsius_to_kelvin($_POST['Val']);
-                        echo '<p class="temp">The temperature is ' . $myTemp . ' Kelvins.</p>';
-                        //echo '<span >Convert C to K</span>';
-                        break;
-                    case 'FtoC':
-                        $myTemp = fahrenheit_to_celsius($_POST['Val']);
-                        echo '<p class="temp">The temperature is ' . $myTemp . ' degrees Celsius.</p>';
-                        //echo '<span>Convert F to C</span>';           
-                        break;
                     case 'FtoF':
-                        echo '<span class="error">Please select different units!</span>';
-                        break;
-                    case 'FtoK':
-                        $myTemp = fahrenheit_to_kelvin($_POST['Val']);
-                        echo '<p class="temp">The temperature is ' . $myTemp . ' Kelvins.</p>';
-                        //echo '<span>Convert F to K</span>';
-                        break;
-                    case 'KtoC':
-                        $myTemp = kelvin_to_celsius($_POST['Val']);
-                        echo '<p class="temp">The temperature is ' . $myTemp . ' degrees Celsius.</p>';
-                        // echo '<span >Convert K to C</span>';
-                        break;
-                    case 'KtoF':
-                        $myTemp = kelvin_to_fahrenheit($_POST['Val']);
-                        echo '<p class="temp">The temperature is ' . $myTemp . ' degrees Fahrenheit.</p>';
-                        // echo '<span \>Convert K to F</span>';
-                        break;
                     case 'KtoK':
                         echo '<span class="error">Please select different units!</span>';
                         break;
-                }
+                    default:
+                        $tmpUnit = array(
+                            "F"=>"degrees Fahrenheit", 
+                            "C"=>"degrees Celsius", 
+                            "K"=>"Kelvin"
+                        );
+                        $result = new TemperatureConversion();
+                        $result->set_Temperature($_POST['Val']);
+                        $result->set_ConvertType($type);                        
+                        $myTemp = $result->get_convertResult();
+                       
+                        echo '<p class="temp">The temperature is ' . $myTemp . ' '.$tmpUnit[$_POST['selectTo']].'.</p>'; 
+                        break;
+                }                
             }
         }
         ?>
