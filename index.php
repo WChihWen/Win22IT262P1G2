@@ -76,7 +76,11 @@
                         $result->set_Temperature($_POST['Val']);
                         $result->set_ConvertType($type);                        
                         $myTemp = $result->get_convertResult();
-                        echo '<p class="temp">The temperature is ' . $myTemp . ' degrees '.$tmpUnit[$_POST['selectTo']].'.</p>'; 
+                        $dg = "degrees";
+                        if ($_POST['selectTo'] == "K"){
+                            $dg = "";
+                        }
+                        echo '<p class="temp">The temperature is ' . $myTemp . ' '.$dg.' '.$tmpUnit[$_POST['selectTo']].'.</p>'; 
                         break;
                 }                
             }
@@ -97,7 +101,7 @@
                     ?>
                 <li>All Rights Reserved</li>
                 <li><a href="https://github.com/WChihWen" target="_blank">Chih Wen Wang</a></li>
-                <li><a href="https://github.com/jmgarza94" target="_blank">Joey Garza</a></li>               
+                <li><a href="https://github.com/jmgarza94" target="_blank">Joey Garza</a></li>
                 <li><a href="https://github.com/RANovelli" target="_blank">Ryan Novelli</a></li>
             </ul>
         </footer>
