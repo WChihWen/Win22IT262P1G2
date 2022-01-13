@@ -20,7 +20,7 @@
                         <option value="NULL" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == NULL) echo 'selected="unselected"'; ?>>Select one!</option>
                         <option value="C" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == "C") echo 'selected="selected"'; ?>>°C</option>
                         <option value="F" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == "F") echo 'selected="selected"'; ?>>°F</option>
-                        <option value="K" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == "K") echo 'selected="selected"'; ?>>°K</option>
+                        <option value="K" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == "K") echo 'selected="selected"'; ?>>Kelvin</option>
                     </select>
                 </p>
                 <p>
@@ -29,7 +29,7 @@
                         <option value="NULL" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == NULL) echo 'selected="unselected"'; ?>>Select one!</option>
                         <option value="C" <?php if (isset($_POST['selectTo']) && $_POST['selectTo'] == "C") echo 'selected="selected"'; ?>>°C</option>
                         <option value="F" <?php if (isset($_POST['selectTo']) && $_POST['selectTo'] == "F") echo 'selected="selected"'; ?>>°F</option>
-                        <option value="K" <?php if (isset($_POST['selectTo']) && $_POST['selectTo'] == "K") echo 'selected="selected"'; ?>>°K</option>
+                        <option value="K" <?php if (isset($_POST['selectTo']) && $_POST['selectTo'] == "K") echo 'selected="selected"'; ?>>Kelvin</option>
                     </select>
                 </p>
 
@@ -68,19 +68,16 @@
                         break;
                     default:
                         $tmpUnit = array(
-                            "F"=>"Fahrenheit", 
-                            "C"=>"Celsius", 
+                            "F"=>"degrees Fahrenheit", 
+                            "C"=>"degrees Celsius", 
                             "K"=>"Kelvin"
                         );
                         $result = new TemperatureConversion();
                         $result->set_Temperature($_POST['Val']);
                         $result->set_ConvertType($type);                        
                         $myTemp = $result->get_convertResult();
-                        $dg = "degrees";
-                        if ($_POST['selectTo'] == "K"){
-                            $dg = "";
-                        }
-                        echo '<p class="temp">The temperature is ' . $myTemp . ' '.$dg.' '.$tmpUnit[$_POST['selectTo']].'.</p>'; 
+                       
+                        echo '<p class="temp">The temperature is ' . $myTemp . ' '.$tmpUnit[$_POST['selectTo']].'.</p>'; 
                         break;
                 }                
             }
