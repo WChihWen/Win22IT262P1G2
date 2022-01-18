@@ -46,4 +46,5 @@ class TemperatureConversion
                 break;
         }
         return $this->result;
+    }
 }
