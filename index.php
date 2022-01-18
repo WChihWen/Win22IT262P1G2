@@ -15,7 +15,7 @@
             <legend>Temperature Conversion</legend>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                 <p>
-                    Value: <input type="number" name="Val" value="<?php if (isset($_POST['Val'])) echo htmlspecialchars($_POST['Val']); ?>">
+                    Value: <input type="text" name="Val" value="<?php if (isset($_POST['Val']) && is_numeric($_POST['Val'])) echo htmlspecialchars($_POST['Val']); ?>">
                     <select name="selectFrom">
                         <option value="NULL" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == NULL) echo 'selected="unselected"'; ?>>Select one!</option>
                         <option value="C" <?php if (isset($_POST['selectFrom']) && $_POST['selectFrom'] == "C") echo 'selected="selected"'; ?>>°C</option>
@@ -47,6 +47,11 @@
                 echo '<p><span class="error">Please fill out value!</span></p>';
                 $all_set = false;
             }
+            
+            if ($_POST['Val'] && is_numeric($_POST['Val']) == FALSE) {
+                echo '<p><span class="error">Please use numeric values!</span></p>';
+                $all_set = false;
+            }
 
             if ($_POST['selectFrom'] == "NULL") {
                 echo '<p><span class="error">Please select converted unit!</span></p>';
@@ -58,8 +63,9 @@
                 $all_set = false;
             }
 
-            if ($all_set == true) {
-                $type = $_POST['selectFrom'] . "to" . $_POST['selectTo'];                
+            if ($all_set == true) {              
+                $type = $_POST['selectFrom'] . "to" . $_POST['selectTo'];
+
                 switch ($type) {
                     case 'CtoC':
                     case 'FtoF':
@@ -68,18 +74,18 @@
                         break;
                     default:
                         $tmpUnit = array(
-                            "F"=>"degrees Fahrenheit", 
-                            "C"=>"degrees Celsius", 
-                            "K"=>"Kelvin"
+                            "F" => "degrees Fahrenheit",
+                            "C" => "degrees Celsius",
+                            "K" => "Kelvin"
                         );
                         $result = new TemperatureConversion();
                         $result->set_Temperature($_POST['Val']);
-                        $result->set_ConvertType($type);                        
+                        $result->set_ConvertType($type);
                         $myTemp = $result->get_convertResult();
-                       
-                        echo '<p class="temp">The temperature is ' . $myTemp . ' '.$tmpUnit[$_POST['selectTo']].'.</p>'; 
+
+                        echo '<p class="temp">The temperature is ' . $myTemp . ' ' . $tmpUnit[$_POST['selectTo']] . '.</p>';
                         break;
-                }                
+                }
             }
         }
         ?>
