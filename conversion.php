@@ -1,4 +1,5 @@
 <?php
+
 class TemperatureConversion
 {
     public $temp;
@@ -45,5 +46,4 @@ class TemperatureConversion
                 break;
         }
         return $this->result;
-    }
 }

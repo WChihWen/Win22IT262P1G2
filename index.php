@@ -2,7 +2,6 @@
 
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Voltaire&display=swap" rel="stylesheet">
@@ -64,8 +63,9 @@
                 $all_set = false;
             }
 
-            if ($all_set == true) {
+            if ($all_set == true) {              
                 $type = $_POST['selectFrom'] . "to" . $_POST['selectTo'];
+
                 switch ($type) {
                     case 'CtoC':
                     case 'FtoF':
